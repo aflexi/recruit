@@ -1,0 +1,11 @@
+{
+  "name": "onapp-recruit",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "3.0.x"
+  },
+  "engines": {
+    "node": "latest",
+    "npm": "latest"
+  }
+}
