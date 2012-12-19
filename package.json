@@ -2,7 +2,9 @@
   "name": "onapp-recruit",
   "version": "0.0.1",
   "dependencies": {
-    "express": "3.0.x"
+    "express": "3.0.x",
+    "nodemailer": "0.3.x",
+    "underscore": "1.4.x"
   },
   "engines": {
     "node": "latest",

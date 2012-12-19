@@ -10,3 +10,7 @@ Then:
 
     nvm use <node_version>
     npm install
+
+Run locally with [Foreman](https://devcenter.heroku.com/articles/nodejs#declare-process-types-with-procfile), e.g.
+
+    TO=hr@email.com SMTP_USER=user SMTP_PASS=pass && foreman start
