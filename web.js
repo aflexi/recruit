@@ -12,7 +12,7 @@ var app = express();
 var port = process.env.PORT || 5000;
 
 var mail = {
-    from: "\"%name% (Recruit)\" <yuenchi.lian@gmail.com>",
+    from: "\"%name% (Recruit)\" <%from%>",
     replyTo: "\"%name%\" <%email%>",
     to: process.env.TO,
     subject: "Resume submission by %name% (%ip%)"
@@ -46,7 +46,7 @@ app.listen(port, function() {
 });
 
 app.get('/', function(req, res) {
-  res.send({ "message": "POST to /resumes with \'name\', \'email\' and an attachment instead." });
+  res.send({ "message": "POST to /resumes with 'name', 'email', 'about' (255 max) and 'file' (attachment) instead." });
 });
 
 app.get('/resumes', function(req, res, next) {
@@ -68,7 +68,7 @@ app.post('/resumes', function(req, res, next) {
           "About: " + req.param('about', '').substr(0, 255)
   }, mail);
 
-  m.from = m.from.replace(/%name%/, req.param('name'));
+  m.from = m.from.replace(/%name%/, req.param('name')).replace(/%from%/, process.env.FROM ? process.env.FROM : process.env.SMTP_USER);
   m.replyTo = m.replyTo.replace(/%name%/, req.param('name')).replace(/%email%/, req.param('email'));
   m.subject = m.subject.replace(/%name%/, req.param('name')).replace(/%ip%/, req.ip);
   m.attachments = [{
@@ -77,11 +77,11 @@ app.post('/resumes', function(req, res, next) {
   }];
 
   smtp.sendMail(m, function(err, mres){
-      if(err){
+      if (err) {
           console.log(err);
-      }else{
+      } else{
           console.log("Message sent: " + mres.message);
       }
   });
-  res.send({"message": "OK!"});
+  res.send({ "message": "OK!" });
 });
