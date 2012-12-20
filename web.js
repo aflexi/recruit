@@ -50,7 +50,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/resumes', function(req, res, next) {
-  res.set('Allow', ['POST', 'PUT']);
+  res.set('Allow', ['POST']);
   res.send(405, { "message": "Method not allowed" });
   res.end();
 });
